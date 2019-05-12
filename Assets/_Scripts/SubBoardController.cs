@@ -13,20 +13,20 @@ public class SubBoardController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        formatButtonArray();
-        toggleSubBoardInteractble(true);
+        FormatButtonArray();
+        ToggleSubBoardInteractble(true);
         buttonArray = new Button[3, 3]; // Sets it so that button array is a 3x3 2D Array
     }
 
     //This is called When a button is clicked in the game
-    public void addMove(Button button) {
-            if (checkEmpty(button.GetComponentInChildren<Text>().text)) { //Makes sure that the button is empty so they dont get over written
-                setButtonText(button); //Sets the text value of the button
-                if (checkEmpty(subBoard.text)) { //Checks if the SubBoard Has been won or not so not to be over written
-                    if (checkSubBoardWin()) { //Calls a method that checks all possible win cases on the 2D Array
-                        setSubBoardText(); // Sets the text of the subboard 
-                        if (gameController.checkGameWin()) { //checks for a game win
-                            gameController.gameOver(); // Ends the game if true
+    public void AddMove(Button button) {
+            if (CheckEmpty(button.GetComponentInChildren<Text>().text)) { //Makes sure that the button is empty so they dont get over written
+                SetButtonText(button); //Sets the text value of the button
+                if (CheckEmpty(subBoard.text)) { //Checks if the SubBoard Has been won or not so not to be over written
+                    if (CheckSubBoardWin()) { //Calls a method that checks all possible win cases on the 2D Array
+                        SetSubBoardText(); // Sets the text of the subboard 
+                        if (gameController.CheckGameWin()) { //checks for a game win
+                            gameController.GameOver(); // Ends the game if true
                         }
                     }
                 }
@@ -37,7 +37,7 @@ public class SubBoardController : MonoBehaviour {
     }
 
     //Checks to see if the passed location is empty.
-    private bool checkEmpty(string text) {
+    private bool CheckEmpty(string text) {
         if (text == "") {
             return true;
         }
@@ -45,7 +45,7 @@ public class SubBoardController : MonoBehaviour {
     }
 
     //Formats buttonArrayTemp from a 1D array to A 2D array 
-    private void formatButtonArray() {
+    private void FormatButtonArray() {
         int i = 0;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -56,7 +56,7 @@ public class SubBoardController : MonoBehaviour {
     }
 
     //Iterates over the buttonArray and grabs all of the strings on the text object and makes an 2D array of Strings
-    private string[,] makeTextArray() {
+    private string[,] MakeTextArray() {
         string[,] textArray = new string[3, 3];
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -67,8 +67,8 @@ public class SubBoardController : MonoBehaviour {
     }
 
     //Checks if the subboard was won on the previous move
-    private bool checkSubBoardWin() {
-        string[,] textArray = makeTextArray();
+    private bool CheckSubBoardWin() {
+        string[,] textArray = MakeTextArray();
 
         //Across
         if (textArray[0, 0] == gameController.currentPlayer && textArray[0, 1] == gameController.currentPlayer && textArray[0, 2] == gameController.currentPlayer) return true;
@@ -89,19 +89,19 @@ public class SubBoardController : MonoBehaviour {
 
 
     //Sets the text of the button that was clicked
-    private void setButtonText(Button button) {
+    private void SetButtonText(Button button) {
         button.GetComponentInChildren<Text>().text = gameController.currentPlayer;
     }
 
 
     //Sets the text of this SubBoard
-    private void setSubBoardText() {
+    private void SetSubBoardText() {
         subBoard.GetComponentInChildren<Text>().text = gameController.currentPlayer;
     }
 
 
     // toggles if the user can interact with the buttons on the subboard
-    public void toggleSubBoardInteractble(bool toggle) {
+    public void ToggleSubBoardInteractble(bool toggle) {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
                 buttonArray[row, col].interactable = toggle;

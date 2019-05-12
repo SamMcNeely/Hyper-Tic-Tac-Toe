@@ -11,16 +11,16 @@ public class GameController : MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         subBoardArray = new GameObject[3, 3];
-        formatSubBoardArray();
-        startInteractive();
+        FormatSubBoardArray();
+        StartInteractive();
     }
 
     // Called When a user clicks the "NEW GAME" Button
-    public void newGame() {
+    public void NewGame() {
         currentPlayer = "X";
         ToggleAllInteractability(true);
         RemoveTextSubBoard();
-        startInteractive();
+        StartInteractive();
     }
 
     // Itterates over the array of subboards and removes texts from the objects
@@ -36,13 +36,13 @@ public class GameController : MonoBehaviour {
 
     public void EndMove(int row, int col) {
         ToggleAllInteractability(false); //Makes whole board not interactable
-        setNextMoveInteractable(row, col); // Makes subboard that is next interableable
-        setCurrentPlayer(); // Changes current player
+        SetNextMoveInteractable(row, col); // Makes subboard that is next interableable
+        SetCurrentPlayer(); // Changes current player
         SetCurrentPlayerText(); // Sets the 
     }
 
     // Formats the 1D array to a 2D array
-    private void formatSubBoardArray() {
+    private void FormatSubBoardArray() {
         int i = 0;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -52,19 +52,19 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    private void setNextMoveInteractable(int row, int col) {
-        subBoardArray[row, col].GetComponent<SubBoardController>().toggleSubBoardInteractble(true);
+    private void SetNextMoveInteractable(int row, int col) {
+        subBoardArray[row, col].GetComponent<SubBoardController>().ToggleSubBoardInteractble(true);
     }
 
-    private void startInteractive() {
+    private void StartInteractive() {
         Debug.Log("start Interactive");
-        subBoardArray[1, 1].GetComponent<SubBoardController>().toggleSubBoardInteractble(false);
+        subBoardArray[1, 1].GetComponent<SubBoardController>().ToggleSubBoardInteractble(false);
     }
 
     private void ToggleAllInteractability(bool toggle) {
         for(int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                subBoardArray[row, col].GetComponent<SubBoardController>().toggleSubBoardInteractble(toggle);
+                subBoardArray[row, col].GetComponent<SubBoardController>().ToggleSubBoardInteractble(toggle);
             }
         }
     }
@@ -73,8 +73,8 @@ public class GameController : MonoBehaviour {
         currentPlayerText.text = "Current Player: " + currentPlayer;
     }
 
-    public bool checkGameWin() {
-        string[,] textArray = makeTextArray();
+    public bool CheckGameWin() {
+        string[,] textArray = MakeTextArray();
 
         //Across
         if (textArray[0, 0] == currentPlayer && textArray[0, 1] == currentPlayer && textArray[0, 2] == currentPlayer) return true;
@@ -93,11 +93,11 @@ public class GameController : MonoBehaviour {
         return false;
     }
 
-    public void gameOver() {
+    public void GameOver() {
         ToggleAllInteractability(false);
     }
 
-    private string[,] makeTextArray() {
+    private string[,] MakeTextArray() {
         string[,] textArray = new string[3, 3];
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -107,7 +107,7 @@ public class GameController : MonoBehaviour {
         return textArray;
     }
 
-    private void setCurrentPlayer() {
+    private void SetCurrentPlayer() {
         if (currentPlayer == "X") {
             currentPlayer = "O";
         }
