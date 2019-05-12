@@ -4,47 +4,36 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class SubBoardController : MonoBehaviour {
-    // Start is called before the first frame update
 
 
-    public Button[] buttonArraytemp = new Button[9]; //Allows for the array to show up in eddior
+    public Button[] buttonArraytemp = new Button[9]; //Allows for the array to show up in Unity eddior
     Button[,] buttonArray; //Makes it so I can format what is given from the editor to a 2d array
     public GameController gameController; //Place holder for the gamecontroller object
-    public Text subBoard; //the text value of the button \
-    
-    //The location of the subboard on the screen in relation to the "Array of subboards"
-    public int subBoardX; 
-    public int subBoardY;
+    public Text subBoard; //the text value of the Subboard
 
+    // Start is called before the first frame update
     void Start() {
         formatButtonArray();
         toggleSubBoardInteractble(true);
-        
+        buttonArray = new Button[3, 3]; // Sets it so that button array is a 3x3 2D Array
     }
 
-    // Update is called once per frame
-    void Update() {
-
-    }
-
+    //This is called When a button is clicked in the game
     public void addMove(Button button) {
-        //if(gameController.checkCorrectSubBoard(this)) { //Tells if the move can be made in the SubBoard that the button is in
             if (checkEmpty(button.GetComponentInChildren<Text>().text)) { //Makes sure that the button is empty so they dont get over written
-                setButtonText(button);
-                if (checkEmpty(subBoard.text)) {
-                    Debug.Log("The subboard is empty");
-                    if (checkSubBoardWin()) {
-                        Debug.Log("The Subboard has been won");
-                        setSubBoardText();
-                        if (gameController.checkGameWin()) {
-                            gameController.gameOver();
+                setButtonText(button); //Sets the text value of the button
+                if (checkEmpty(subBoard.text)) { //Checks if the SubBoard Has been won or not so not to be over written
+                    if (checkSubBoardWin()) { //Calls a method that checks all possible win cases on the 2D Array
+                        setSubBoardText(); // Sets the text of the subboard 
+                        if (gameController.checkGameWin()) { //checks for a game win
+                            gameController.gameOver(); // Ends the game if true
                         }
                     }
                 }
+                // If it gets here the game is not over and is able to end move. 
+                //This also gets the x and y of the button and tells the game controller where it is so it can force the next move
                 gameController.EndMove(button.GetComponentInChildren<ButtonController>().buttonX, button.GetComponentInChildren<ButtonController>().buttonY);
             }
-            //else gameController.SpaceFilled();//TODO make class to show error
-        //}
     }
 
     //Checks to see if the passed location is empty.
@@ -55,9 +44,8 @@ public class SubBoardController : MonoBehaviour {
         return false;
     }
 
-    //Iterates over the temp array that is shown in the editor to add them to the 2d array for use in the class
+    //Formats buttonArrayTemp from a 1D array to A 2D array 
     private void formatButtonArray() {
-        buttonArray = new Button[3, 3];
         int i = 0;
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -67,7 +55,7 @@ public class SubBoardController : MonoBehaviour {
         }
     }
 
-    //Iterates over the buttonArray and grabs all of the strings on the text object
+    //Iterates over the buttonArray and grabs all of the strings on the text object and makes an 2D array of Strings
     private string[,] makeTextArray() {
         string[,] textArray = new string[3, 3];
         for (int row = 0; row < 3; row++) {
@@ -100,18 +88,19 @@ public class SubBoardController : MonoBehaviour {
     }
 
 
-    //Sets the text of the button
+    //Sets the text of the button that was clicked
     private void setButtonText(Button button) {
-        Debug.Log("setting player move");
         button.GetComponentInChildren<Text>().text = gameController.currentPlayer;
     }
 
 
-    //Sets the text of the SubBoard
+    //Sets the text of this SubBoard
     private void setSubBoardText() {
         subBoard.GetComponentInChildren<Text>().text = gameController.currentPlayer;
     }
 
+
+    // toggles if the user can interact with the buttons on the subboard
     public void toggleSubBoardInteractble(bool toggle) {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -120,22 +109,10 @@ public class SubBoardController : MonoBehaviour {
         }
     }
 
-    public void clearBoard() {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col < 3; col++) {
-
-            }
-        }
-    }
-
-    public Button[,] getButtonArray() {
-        return buttonArray;
-    }
-
     public void RemoveTextFromButtonArray() {
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                buttonArray[row, col].GetComponentInChildren<Text>().text = "";
+                buttonArray[row, col].GetComponentInChildren<Text>().text = ""; //Sets the text to an empty string
             }
         }
     }

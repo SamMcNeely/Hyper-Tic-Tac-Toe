@@ -1,56 +1,47 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
-    public string currentPlayer = "X";
-    public GameObject[] subBoardArrayTemp;
-    private GameObject[,] subBoardArray = new GameObject[3, 3];
-    private int moveNum = 0;
-    public Text currentPlayerText;
+    public string currentPlayer;
+    public GameObject[] subBoardArrayTemp; //Is what is visiable in the Unity Editor so SubBoard refferences could be added.
+    private GameObject[,] subBoardArray; // 2D array for use in c
+    public Text currentPlayerText; // Tells the users who turn it is
 
     // Start is called before the first frame update
     void Start() {
+        subBoardArray = new GameObject[3, 3];
         formatSubBoardArray();
         startInteractive();
     }
 
-    // Update is called once per frame
-    void Update() {
-        
-    }
-
+    // Called When a user clicks the "NEW GAME" Button
     public void newGame() {
-        Debug.Log("New Game Cleaning");
         currentPlayer = "X";
         ToggleAllInteractability(true);
         RemoveTextSubBoard();
         startInteractive();
     }
 
+    // Itterates over the array of subboards and removes texts from the objects
     private void RemoveTextSubBoard() {
         Debug.Log("removing text");
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
-                Debug.Log("Text In SubBoard: " + subBoardArray[row, col].GetComponentInChildren<Text>().text);
-                subBoardArray[row, col].GetComponent<SubBoardController>().subBoard.text = "";
+                subBoardArray[row, col].GetComponent<SubBoardController>().subBoard.text = ""; // Sets text to an empty string
                 subBoardArray[row, col].GetComponent<SubBoardController>().RemoveTextFromButtonArray();
             }
         }
     }
 
     public void EndMove(int row, int col) {
-        ToggleAllInteractability(false);
-        setNextMoveInteractable(row, col);
-        moveNum++;
-        setCurrentPlayer();
-        SetCurrentPlayerText();
+        ToggleAllInteractability(false); //Makes whole board not interactable
+        setNextMoveInteractable(row, col); // Makes subboard that is next interableable
+        setCurrentPlayer(); // Changes current player
+        SetCurrentPlayerText(); // Sets the 
     }
 
-    //TODO: Make this a method that both subboard and game controller can use
+    // Formats the 1D array to a 2D array
     private void formatSubBoardArray() {
         int i = 0;
         for (int row = 0; row < 3; row++) {
@@ -103,7 +94,6 @@ public class GameController : MonoBehaviour {
     }
 
     public void gameOver() {
-        Debug.Log("Game Over");
         ToggleAllInteractability(false);
     }
 
