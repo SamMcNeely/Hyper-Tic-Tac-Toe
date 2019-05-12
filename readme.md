@@ -18,3 +18,17 @@
         IE. If player X made a move in the top left 3x3 at bottom right O would play in the bottom right 3x3 grid
 4. As the game goes on the "Subboards" or 3x3 grids will be won players can make moves so that the other player has to "waste" a turn in the already won subbaord
 5. The game is won when on player has a 3 in a row on the subboards
+
+## Dev Tools
+
+1. Press f3 to turn on dev tools
+
+### SubBoard 
+Control text on the SubBoard by pressing the numpad numbers
+- 7 corisponds to top left subboard of the Game Board
+- 3 corrisponds to bottom right SubBoard of the Game Board
+
+### Current Player
+Control who the current player is
+- x sets X to be current player
+- o set O to be current player
