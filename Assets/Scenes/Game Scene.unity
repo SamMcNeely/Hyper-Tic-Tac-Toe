@@ -2572,6 +2572,11 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0.32941177
       objectReference: {fileID: 0}
+    - target: {fileID: 5543712654730407232, guid: 5506f21e020f19140924aa283ba4591e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: AddMove
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5506f21e020f19140924aa283ba4591e, type: 3}
 --- !u!224 &7894532046652252246 stripped

@@ -26,6 +26,7 @@ public class SubBoardController : MonoBehaviour {
                     if (CheckSubBoardWin()) { //Calls a method that checks all possible win cases on the 2D Array
                         SetSubBoardText(); // Sets the text of the subboard 
                         if (gameController.CheckGameWin()) { //checks for a game win
+                            Debug.Log(gameController.CheckGameWin());
                             gameController.GameOver(); // Ends the game if true
                         }
                     }
@@ -87,6 +88,10 @@ public class SubBoardController : MonoBehaviour {
         return false;
     }
 
+    public string GetSubBoardText() {
+        return subBoard.text;
+    }
+
 
     //Sets the text of the button that was clicked
     private void SetButtonText(Button button) {
@@ -95,7 +100,7 @@ public class SubBoardController : MonoBehaviour {
 
 
     //Sets the text of this SubBoard
-    private void SetSubBoardText() {
+    public void SetSubBoardText() {
         subBoard.GetComponentInChildren<Text>().text = gameController.currentPlayer;
     }
 
