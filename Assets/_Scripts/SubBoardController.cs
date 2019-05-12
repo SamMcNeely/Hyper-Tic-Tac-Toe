@@ -13,9 +13,9 @@ public class SubBoardController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        buttonArray = new Button[3, 3]; // Sets it so that button array is a 3x3 2D Array
         FormatButtonArray();
         ToggleSubBoardInteractble(true);
-        buttonArray = new Button[3, 3]; // Sets it so that button array is a 3x3 2D Array
     }
 
     //This is called When a button is clicked in the game
