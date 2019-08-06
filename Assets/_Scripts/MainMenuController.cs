@@ -8,7 +8,7 @@ public class MainMenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Screen.SetResolution(600, 800, false);
     }
 
     // Update is called once per frame
