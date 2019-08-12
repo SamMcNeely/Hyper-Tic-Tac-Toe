@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        Screen.SetResolution(600, 800, false);
+        Screen.SetResolution(1556, 2048, false);
         subBoardArray = new GameObject[3, 3];
         devToolsOn = false;
         FormatSubBoardArray();
